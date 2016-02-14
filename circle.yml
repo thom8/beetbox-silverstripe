@@ -1,0 +1,20 @@
+---
+machine:
+  python:
+    version: 2.7.6
+  environment:
+    BEET_HOME: /beetbox
+    BEET_ROOT: "/var/beetbox/docroot"
+    BEET_USER: ubuntu
+    BEET_REPO: "https://github.com/thom8/beetbox.git"
+    BEET_VERSION: "plumbing-packer"
+    BEET_DEPENDENCIES: https://raw.githubusercontent.com/thom8/beetbox/plumbing-packer/provisioning/beetbox.sh
+dependencies:
+  pre:
+    - curl -fsSL $BEET_DEPENDENCIES | bash
+    - sudo cp ~/$CIRCLE_PROJECT_REPONAME/.beetbox/config.yml $BEET_HOME/provisioning/ansible/vagrant.config.yml
+    - $BEET_HOME/provisioning/beetbox.sh
+test:
+  override:
+    - cd $BEET_ROOT && sudo sake /
+    - cd $BEET_ROOT && sudo sake dev/tests/all
