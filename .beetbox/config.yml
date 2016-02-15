@@ -8,6 +8,7 @@ ss_account_name: admin
 ss_account_pass: admin
 beet_mysql_user: root
 beet_mysql_password: ""
+php_version: "5.5"
 php_packages:
   - php5
   - libapache2-mod-php5
